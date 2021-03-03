@@ -1,0 +1,8 @@
+org/geektimes/projects/user/service/UserService.class
+org/geektimes/projects/user/domain/User.class
+org/geektimes/projects/user/web/controller/LoginController.class
+org/geektimes/projects/user/web/filter/CharsetEncodingFilter.class
+org/geektimes/projects/user/repository/UserRepository.class
+org/geektimes/projects/user/service/impl/UserServiceImpl.class
+org/geektimes/projects/user/web/controller/RegisterController.class
+org/geektimes/projects/user/web/controller/HelloWorldController.class
