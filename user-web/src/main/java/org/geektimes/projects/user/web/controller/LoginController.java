@@ -9,21 +9,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import org.geektimes.web.mvc.ioc.annotation.MyAutowired;
+import org.geektimes.web.mvc.ioc.annotation.MyComponent;
 
 /**
  * 输出 “Hello,World” Controller
  */
 @Path("/register")
+@MyComponent(name = "LoginController")
 public class LoginController implements PageController {
 
-    private UserService userService = new UserServiceImpl();
+    @MyAutowired(name = "UserService")
+    private UserService userService;
 
     @Override
     @POST
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-        if (true) {
-            return "success.jsp";
-        }
-        return "failed.jsp";
+        return String.valueOf(userService.deregister(null));
+//        if (true) {
+//            return "success.jsp";
+//        }
+//        return "failed.jsp";
     }
 }

@@ -17,6 +17,8 @@
 
 package org.geektimes.web.mvc.dbProxy;
 
+import javax.annotation.Resource;
+import org.geektimes.web.mvc.database.DBConnectionManager;
 import org.geektimes.web.mvc.sql.Insert;
 import org.geektimes.web.mvc.sql.Select;
 import org.geektimes.web.mvc.database.H2Database;
@@ -39,7 +41,9 @@ import java.util.Map;
 
 public class RepositoryInvocationHandler implements InvocationHandler {
 
-    H2Database database = H2Database.getInstance();
+    //    H2Database database = H2Database.getInstance();
+    @Resource(name = "bean/DBConnectionManager")
+    DBConnectionManager dbConnectionManager;
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) {
@@ -68,7 +72,7 @@ public class RepositoryInvocationHandler implements InvocationHandler {
     private Object executeQuerySql(String querySql, String returnType) throws SQLException, ClassNotFoundException, IllegalAccessException, IntrospectionException, NoSuchMethodException, InvocationTargetException, InstantiationException {
         List<Object> result = new ArrayList<>();
 
-        Connection conn = database.getConnection();
+        Connection conn = dbConnectionManager.getConnection();
         Statement statement = conn.createStatement();
 
         ResultSet res = statement.executeQuery(querySql);
@@ -129,7 +133,7 @@ public class RepositoryInvocationHandler implements InvocationHandler {
         String sql = String.format(sqlTemplate, cols.toString(), values.toString());
         System.out.println("sql string: " + sql);
 
-        Connection conn = database.getConnection();
+        Connection conn = dbConnectionManager.getConnection();
         Statement statement = conn.createStatement();
         statement.execute(sql);
 
